@@ -1,19 +1,16 @@
 import pandas as pd
 import glob
+from pathlib import Path
+    # Importação dos arquivos da ANS - Maquina do Escritório
 
-# Dez_20 = pd.read_csv('//10.1.17.4/Setores/Trade de Marketing/Inteligencia/BANCO_DE_DADOS/RODRIGO/ANS/2020/12/ben202012_AC.csv', sep=';')
-# TODO Find path '//10.1.17.4/Setores/Trade de Marketing/Inteligencia/BANCO_DE_DADOS/RODRIGO/ANS/2020/12/ben202012_AC.csv'
-
-path = '//10.1.17.4/Setores/Trade de Marketing/Inteligencia/BANCO_DE_DADOS/RODRIGO/ANS/2020/12/ben202012_AC.csv'
-filenames = glob.glob(path + '/*.csv')
-
+glob_path = Path("//10.1.17.4/Setores/Trade de Marketing/Inteligencia/BANCO_DE_DADOS/RODRIGO/ANS/2020/12/")
+file_list = [str(pp) for pp in glob_path.glob("**\*.csv")]
 Dez_20 = pd.DataFrame()
 df = pd.DataFrame()
 
-for filename in filenames:
+for filename in file_list:
     df = pd.read_csv(filename, sep=';')
-    Dez_20 = Dez_20.append(df)
-
+    Dez_20 = Dez_20.append(df, ignore_index=True)
 
 if __name__ == '__main__':
-    print(Dez_20)
+    Dez_20.dtypes
